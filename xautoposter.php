@@ -1,0 +1,31 @@
+<?php
+/**
+ * Plugin Name: XAutoPoster
+ * Description: WordPress içeriklerinizi otomatik olarak X (Twitter) hesabınızda paylaşın
+ * Version: 1.0.0
+ * Author: Murat Canbaz
+ * Text Domain: xautoposter
+ */
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+// Define plugin constants
+define('XAUTOPOSTER_VERSION', '1.0.0');
+define('XAUTOPOSTER_FILE', __FILE__);
+define('XAUTOPOSTER_PATH', plugin_dir_path(__FILE__));
+define('XAUTOPOSTER_URL', plugin_dir_url(__FILE__));
+define('XAUTOPOSTER_BASENAME', plugin_basename(__FILE__));
+define('XAUTOPOSTER_NODE_URL', 'http://localhost:3000');
+
+// Initialize the plugin
+function xautoposter_init() {
+    if (!class_exists('XAutoPoster\\Plugin')) {
+        require_once XAUTOPOSTER_PATH . 'src/Plugin.php';
+    }
+    return \XAutoPoster\Plugin::getInstance();
+}
+
+// Start the plugin
+add_action('plugins_loaded', 'xautoposter_init');
